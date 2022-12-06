@@ -3,10 +3,20 @@
  * @param {Express.Request} req The client request.
  * @param {Express.Response} res The server response.
  */
- function gamePage(req, res) {
+function gamePage(req, res) {
     return res.render('game');
-  }
+}
 
-  module.exports = {
+/**
+* Renders the about page.
+* @param {Express.Request} req The client request.
+* @param {Express.Response} res The server response.
+*/
+function aboutPage(req, res) {
+    return res.render('about');
+}
+
+module.exports = {
     gamePage,
-  };
+    aboutPage,
+};

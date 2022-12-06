@@ -122,7 +122,7 @@ const build = gulp.parallel(/*sassTask, */jsTask, lintTask);
 */
 const watch = (done) => {
     //gulp.watch('./scss', sassTask);
-    gulp.watch(['./client/*.js', './client/*.jsx'], jsTask);
+    gulp.watch(['./client/**/*.js', './client/**/*.jsx'], jsTask);
     nodemon({ 
         script: './server/app.js',
         tasks: ['lintTask'],

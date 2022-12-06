@@ -1,4 +1,4 @@
-const config = require('./config.js');
+const config = require('../config.js');
 
 function requiresSecure(req, res, next) {
   if (config.mode === 'prod' && req.headers['x-forwarded-proto'] !== 'https') {

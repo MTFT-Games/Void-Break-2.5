@@ -21,7 +21,7 @@ template.innerHTML = `
 	<nav class='navbar py-3'>
 		<!-- Brand and burger -->
 		<div class='navbar-brand'>
-			<a href='about.html' class='navbar-item'>
+			<a href='/' class='navbar-item'>
 				<!-- TODO: make a proper logo/brand -->
 				<i class="fa-brands fa-battle-net is-size-3 has-text-light mr-2"></i>
 				<h1 class='title has-text-light'>Void Break 2</h1>
@@ -36,8 +36,8 @@ template.innerHTML = `
 		<!-- Nav menu -->
 		<div class='navbar-menu'>
 			<div class='navbar-end'>
-				<a class='navbar-item is-tab has-text-light' href='about.html' id='about'>About</a>
-				<a class='navbar-item is-tab has-text-light' href='game.html' id='game'>Game</a>
+				<a class='navbar-item is-tab has-text-light' href='/' id='about'>About</a>
+				<a class='navbar-item is-tab has-text-light' href='/game' id='game'>Game</a>
 				<a class='navbar-item is-tab has-text-light' href='documentation.html' id='documentation'>
 					Documentation</a>
 			</div>

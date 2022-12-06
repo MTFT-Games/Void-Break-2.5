@@ -6,7 +6,7 @@ const mid = require('./middleware');
  * @param {Express} app The express application.
  */
 function router(app) {
-  app.get('/', (req, res) => res.json({ msg: 'Good' }));
+  app.get('/', controllers.Game.aboutPage);
   
   app.get('/game', controllers.Game.gamePage);
 
