@@ -1,4 +1,4 @@
-//const controllers = require('./controllers');
+const controllers = require('./controllers');
 // const mid = require('./middleware');
 
 /**
@@ -7,6 +7,8 @@
  */
 function router(app) {
   app.get('/', (req, res) => res.json({ msg: 'Good' }));
+  
+  app.get('/game', controllers.Game.gamePage);
 }
 
 module.exports = router;
