@@ -9,6 +9,11 @@ function router(app) {
   app.get('/', (req, res) => res.json({ msg: 'Good' }));
   
   app.get('/game', controllers.Game.gamePage);
+
+  app.post('/login', controllers.Account.login);
+  app.post('/signup', controllers.Account.signup);
+  app.post('/resetPass', controllers.Account.resetPass);
+  app.post('/logout', controllers.Account.logout);
 }
 
 module.exports = router;
