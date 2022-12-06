@@ -1,5 +1,5 @@
 const controllers = require('./controllers');
-// const mid = require('./middleware');
+const mid = require('./middleware');
 
 /**
  * Sets routes to controller functions.
@@ -10,9 +10,9 @@ function router(app) {
   
   app.get('/game', controllers.Game.gamePage);
 
-  app.post('/login', controllers.Account.login);
-  app.post('/signup', controllers.Account.signup);
-  app.post('/resetPass', controllers.Account.resetPass);
+  app.post('/login', mid.requiresSecure, controllers.Account.login);
+  app.post('/signup', mid.requiresSecure, controllers.Account.signup);
+  app.post('/resetPass', mid.requiresSecure, controllers.Account.resetPass);
   app.post('/logout', controllers.Account.logout);
 }
 
