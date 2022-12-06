@@ -1,10 +1,16 @@
 {
   "name": "void-break-2.5",
   "version": "1.0.0",
-  "description": "",
+  "description": "TODO",
   "main": "./server/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "webpack": "webpack",
+    "webpackWatch": "webpack watch",
+    "nodemon": "nodemon -e js,html,css --watch ./server --watch ./hosted ./server/app.js",
+    "start": "node ./server/app.js",
+    "pretest": "eslint ./server --fix",
+    "test": "echo \"Tests complete\"",
+    "heroku-postbuild": "webpack"
   },
   "repository": {
     "type": "git",
@@ -27,7 +33,9 @@
     "express-session": "^1.17.3",
     "helmet": "^6.0.0",
     "mongoose": "^6.7.2",
+    "randomstring": "^1.2.3",
     "redis": "^4.5.0",
+    "serve-favicon": "^2.5.0",
     "webpack": "^5.75.0"
   },
   "devDependencies": {
