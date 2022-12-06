@@ -1,0 +1,9 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+.navbar {
+    background-image: url(/assets/img/backgrounds/large/purple/purple-nebula-5.jpg);
+}
+.navbar-menu {
+    background: transparent;
+}
