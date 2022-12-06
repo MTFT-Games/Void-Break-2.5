@@ -39,7 +39,7 @@ const app = express();
 
 // Statically serve the hosted directory as the assets route and set the favicon
 app.use('/assets', express.static(path.resolve(`${__dirname}/../${config.paths.host}`)));
-//app.use(favicon(`${__dirname}/../${config.paths.host}img/favicon.png`));
+app.use(favicon(`${__dirname}/../${config.paths.host}img/favicon.png`));
 
 // Enable helper modules
 app.use(helmet({
