@@ -1,4 +1,4 @@
-//#region Imports
+// #region Imports
 const path = require('path');
 const express = require('express');
 const favicon = require('serve-favicon');
@@ -14,9 +14,9 @@ const RedisStore = require('connect-redis')(session);
 
 const router = require('./router.js');
 const config = require('./config.js');
-//#endregion
+// #endregion
 
-//#region External connections
+// #region External connections
 mongoose.connect(config.connections.mongo.uri, (err) => {
   if (err) {
     console.error('[FATAL ERROR]: Could not connect to database');
@@ -32,7 +32,7 @@ redisClient.connect().catch((err) => {
   console.error('[FATAL ERROR]: Could not connect to redis');
   throw err;
 });
-//#endregion
+// #endregion
 
 // #region Express setup
 const app = express();
@@ -69,7 +69,7 @@ app.use(session({
     httpOnly: true,
   },
 }));
-//#endregion
+// #endregion
 
 router(app);
 

@@ -36,10 +36,10 @@
     "randomstring": "^1.2.3",
     "redis": "^4.5.0",
     "serve-favicon": "^2.5.0",
+    "dotenv": "^16.0.3",
     "webpack": "^5.75.0"
   },
   "devDependencies": {
-    "dotenv": "^16.0.3",
     "eslint": "^8.27.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.26.0",
