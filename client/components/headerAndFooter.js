@@ -1,2 +1,2 @@
-import "./nav-header.jsx";
+import "./NavHeader.jsx";
 import "./footer-comp.js";

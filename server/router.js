@@ -13,7 +13,7 @@ function router(app) {
   app.post('/login', mid.requiresSecure, controllers.Account.login);
   app.post('/signup', mid.requiresSecure, controllers.Account.signup);
   app.post('/resetPass', mid.requiresSecure, controllers.Account.resetPass);
-  app.post('/logout', controllers.Account.logout);
+  app.get('/logout', controllers.Account.logout);
 }
 
 module.exports = router;

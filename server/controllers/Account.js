@@ -7,7 +7,7 @@ const { Account } = require('../models');
  */
 function logout(req, res) {
   req.session.destroy();
-  return res.status(205);
+  return res.status(205).send();
 }
 
 /**
@@ -25,7 +25,7 @@ function login(req, res) {
 
   return Account.authenticate(username, pass, (err, account) => {
     if (err || !account) {
-      return res.status(401).json({ error: 'Wrong username or password!' });
+      return res.status(401).json({ error: 'Wrong username or password!', id: 'BadAuth'});
     }
 
     req.session.account = Account.toAPI(account);
@@ -46,11 +46,11 @@ async function signup(req, res) {
   const email = `${req.body.email}`;
 
   if (!username || !pass || !pass2 || !email) {
-    return res.status(400).json({ error: 'All fields are required!' });
+    return res.status(400).json({ error: 'All fields are required!', id: 'MissingField' });
   }
 
   if (pass !== pass2) {
-    return res.status(400).json({ error: 'Passwords do not match!' });
+    return res.status(400).json({ error: 'Passwords do not match!', id: 'PassMismatch' });
   }
 
   try {
@@ -62,9 +62,9 @@ async function signup(req, res) {
   } catch (error) {
     console.error(error);
     if (error.code === 11000) {
-      return res.status(400).json({ error: 'Username already in use.' });
+      return res.status(400).json({ error: 'Username already in use.', id: 'UserTaken' });
     }
-    return res.status(400).json({ error: 'An error occurred' });
+    return res.status(400).json({ error: 'An error occurred', id: 'Unknown' });
   }
 }
 

@@ -1,4 +1,4 @@
-import "./components/nav-header.jsx";
+import "./components/NavHeader.jsx";
 import "./components/void-break.js";
 
 const game = document.querySelector('void-break');

@@ -1,4 +1,6 @@
-const { useState, useEffect } = React;
+import "./AccountWidget.jsx";
+import AccountWidget from "./AccountWidget.jsx";
+const { useState } = React;
 
 const NavHeader = ({ active, account }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -42,15 +44,7 @@ const NavHeader = ({ active, account }) => {
             >
               Game
             </a>
-            <a
-              className={`navbar-item is-tab has-text-light ${
-                active === 'documentation' ? 'is-active' : ''
-              }`}
-              href="documentation.html"
-              id="documentation"
-            >
-              Documentation
-            </a>
+            <AccountWidget initialAccount={account}></AccountWidget>
           </div>
         </div>
       </nav>
@@ -59,7 +53,7 @@ const NavHeader = ({ active, account }) => {
 };
 
 const header = document.getElementById('nav-header');
-const headerArgs = header.textContent.split(',');
+const headerArgs = header.textContent.split('|');
 const account = headerArgs[1] ? JSON.parse(headerArgs[1]) : null;
 ReactDOM.render(
 	<NavHeader active={headerArgs[0]} account={account} />,
