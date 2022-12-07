@@ -14,6 +14,8 @@ function router(app) {
   app.post('/signup', mid.requiresSecure, controllers.Account.signup);
   app.post('/resetPass', mid.requiresSecure, controllers.Account.resetPass);
   app.get('/logout', controllers.Account.logout);
+
+  app.get('*', (req, res) => res.render('notFound'));
 }
 
 module.exports = router;

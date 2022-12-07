@@ -1,0 +1,48 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Void Break</title>
+
+	<!-- Compatibility and responsiveness meta tags -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- React -->
+	<script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+	<!-- Bulma -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+	<!-- Font awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<!-- Embedded font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    <link rel="shortcut icon" href="/assets/img/favicon.png" />
+    <link rel="stylesheet" href="/assets/styles/style.css">
+
+	<!-- Web components -->
+	<script type="module" src="/assets/aboutBundle.js"></script>
+</head>
+
+<body class="has-background-dark has-text-light">
+    <div id="nav-header"> |{{#if account}}{{account}}{{/if}}</div>
+
+	<div class="hero p-2">
+		<div class="hero-body content">
+			<h2 class="subtitle has-text-light">Page not found</h2>
+			<p>
+				Uh oh, it seems that whatever page you were looking for doesn't exist. Double check the url or try going to one of the links in the nav bar.
+			</p>
+		</div>
+	</div>
+
+	<footer-comp></footer-comp>
+</body>
+
+</html>
