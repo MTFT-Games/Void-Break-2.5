@@ -21,58 +21,6 @@ class VoidBreak extends HTMLElement {
 	constructor() {
 		super();
 
-		// if its running, listen to face controls
-		if (typeof io === "function"){
-			this.socket = io('http://127.0.0.1:8081');
-			let initSocket = () =>{
-				// sends to socket.io server the host/port of oscServer
-				// and oscClient
-				this.socket.emit('config',
-					{
-						server: {
-							port: 3333,
-							host: '127.0.0.1'
-						},
-						client: {
-							port: 3334,
-							host: '127.0.0.1'
-						}
-					}
-				);
-			};
-			this.socket.on('connect', initSocket );
-		
-			let faceControls = (obj) => {
-				// check orientation for rotation
-				if (obj[5][3] < -0.4 ){
-					this.player.turning.cw = 1;
-					this.player.turning.ccw = 0;
-				} else if (obj[5][3] > 0.4 ){
-					this.player.turning.ccw = 1;
-					this.player.turning.cw = 0;
-				} else {
-					this.player.turning.ccw = 0;
-					this.player.turning.cw = 0;
-				}
-				// check scale for thrust
-				if (obj[4][1] > 5.5){
-					this.player.thrusting = true;
-				} else {
-					this.player.thrusting = false;
-				}
-				// check mouth height for shoot
-				if (obj[7][1] > 5.0){
-					if (!this.player.firing) {
-						this.player.startFiring = true;
-					}
-				} else {
-					this.player.firing = false;
-				}
-			};
-
-			this.socket.on('message', faceControls );
-		}
-
 		//#region Add shadowroot and get canvas
 		this.attachShadow({ mode: 'open' });
 		this.shadowRoot.appendChild(template.content.cloneNode(true));
@@ -111,6 +59,62 @@ class VoidBreak extends HTMLElement {
 		this.canvas.oncontextmenu = (e) => {
 			e.preventDefault();
 		};
+
+		// if its running, listen to face controls
+		if (typeof io === "function"){
+			console.log("io exists, running face controls");
+			this.socket = io('http://127.0.0.1:8081');
+			let initSocket = () =>{
+				// sends to socket.io server the host/port of oscServer
+				// and oscClient
+				this.socket.emit('config',
+					{
+						server: {
+							port: 3333,
+							host: '127.0.0.1'
+						},
+						client: {
+							port: 3334,
+							host: '127.0.0.1'
+						}
+					}
+				);
+			};
+			this.socket.on('connect', initSocket );
+		
+			let faceControls = (obj) => {
+				// check orientation for rotation
+				this.faceRot = obj[5][3];
+				if (obj[5][3] < -0.4 ){
+					this.player.turning.cw = 1;
+					this.player.turning.ccw = 0;
+				} else if (obj[5][3] > 0.4 ){
+					this.player.turning.ccw = 1;
+					this.player.turning.cw = 0;
+				} else {
+					this.player.turning.ccw = 0;
+					this.player.turning.cw = 0;
+				}
+				// check scale for thrust
+				this.faceSca = obj[4][1];
+				if (obj[4][1] > 5.5){
+					this.player.thrusting = true;
+				} else {
+					this.player.thrusting = false;
+				}
+				// check mouth height for shoot
+				this.faceMou = obj[7][1];
+				if (obj[7][1] > 5.0){
+					if (!this.player.firing) {
+						this.player.startFiring = true;
+					}
+				} else {
+					this.player.firing = false;
+				}
+			};
+
+			this.socket.on('message', faceControls );
+		}
 
 		// Keep track of keyboard
 		// TODO: Make the keys to check variables so they can be changed
@@ -640,6 +644,12 @@ class VoidBreak extends HTMLElement {
 				this.ctx.fillStyle = 'white';
 				this.ctx.font = '40px Futura';
 				this.ctx.fillText("Score: " + this.score, 10, 50);
+				if (typeof io === "function"){
+					this.ctx.fillText("Face detection active", 10, 100);
+					this.ctx.fillText("Face tilt: " + this.faceRot.toFixed(2) + " / |0.4|", 10, 150);
+					this.ctx.fillText("Face scale: " + this.faceSca.toFixed(1) + " / 5.5", 10, 200);
+					this.ctx.fillText("Mouth open: " + this.faceMou.toFixed(1) + " / 5.0", 10, 250);
+				}
 
 				this.ctx.restore();
 				//#endregion
