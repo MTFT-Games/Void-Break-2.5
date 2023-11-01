@@ -21,6 +21,55 @@ class VoidBreak extends HTMLElement {
 	constructor() {
 		super();
 
+		// if its running, listen to face controls
+		if (typeof io === "function"){
+			this.socket = io('http://127.0.0.1:8081');
+			this.socket.on('connect', function() {
+				// sends to socket.io server the host/port of oscServer
+				// and oscClient
+				this.socket.emit('config',
+					{
+						server: {
+							port: 3333,
+							host: '127.0.0.1'
+						},
+						client: {
+							port: 3334,
+							host: '127.0.0.1'
+						}
+					}
+				);
+			});
+		
+			socket.on('message', function(obj) {
+				// check orientation for rotation
+				if (obj[5][3] < -0.4 ){
+					this.player.turning.cw = 1;
+					this.player.turning.ccw = 0;
+				} else if (obj[5][3] > 0.4 ){
+					this.player.turning.ccw = 1;
+					this.player.turning.cw = 0;
+				} else {
+					this.player.turning.ccw = 0;
+					this.player.turning.cw = 0;
+				}
+				// check scale for thrust
+				if (obj[4][1] > 5.5){
+					this.player.thrusting = true;
+				} else {
+					this.player.thrusting = false;
+				}
+				// check mouth height for shoot
+				if (obj[7][1] > 5.0){
+					if (!this.player.firing) {
+						this.player.startFiring = true;
+					}
+				} else {
+					this.player.firing = false;
+				}
+			});
+		}
+
 		//#region Add shadowroot and get canvas
 		this.attachShadow({ mode: 'open' });
 		this.shadowRoot.appendChild(template.content.cloneNode(true));
