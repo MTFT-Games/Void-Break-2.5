@@ -82,13 +82,21 @@ class VoidBreak extends HTMLElement {
 			};
 			this.socket.on('connect', initSocket );
 		
+			this.faceMou = 0;
+			this.faceRot = 0;
+			this.faceSca = 0;
 			let faceControls = (obj) => {
+				if (obj[2][1] == 0) {
+					this.faceFound = false;
+					return;
+				}
+				this.faceFound = true;
 				// check orientation for rotation
 				this.faceRot = obj[5][3];
-				if (obj[5][3] < -0.4 ){
+				if (obj[5][3] < -0.25 ){
 					this.player.turning.cw = 1;
 					this.player.turning.ccw = 0;
-				} else if (obj[5][3] > 0.4 ){
+				} else if (obj[5][3] > 0.25 ){
 					this.player.turning.ccw = 1;
 					this.player.turning.cw = 0;
 				} else {
@@ -645,8 +653,8 @@ class VoidBreak extends HTMLElement {
 				this.ctx.font = '40px Futura';
 				this.ctx.fillText("Score: " + this.score, 10, 50);
 				if (typeof io === "function"){
-					this.ctx.fillText("Face detection active", 10, 100);
-					this.ctx.fillText("Face tilt: " + this.faceRot.toFixed(2) + " / |0.4|", 10, 150);
+					this.ctx.fillText(this.faceFound ? "Face detection active" : "Face not detected", 10, 100);
+					this.ctx.fillText("Face tilt: " + this.faceRot.toFixed(2) + " / |0.25|", 10, 150);
 					this.ctx.fillText("Face scale: " + this.faceSca.toFixed(1) + " / 5.5", 10, 200);
 					this.ctx.fillText("Mouth open: " + this.faceMou.toFixed(1) + " / 5.0", 10, 250);
 				}
