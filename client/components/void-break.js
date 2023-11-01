@@ -24,7 +24,7 @@ class VoidBreak extends HTMLElement {
 		// if its running, listen to face controls
 		if (typeof io === "function"){
 			this.socket = io('http://127.0.0.1:8081');
-			this.socket.on('connect', function() {
+			let initSocket = () =>{
 				// sends to socket.io server the host/port of oscServer
 				// and oscClient
 				this.socket.emit('config',
@@ -39,9 +39,10 @@ class VoidBreak extends HTMLElement {
 						}
 					}
 				);
-			});
+			};
+			this.socket.on('connect', initSocket );
 		
-			socket.on('message', function(obj) {
+			let faceControls = (obj) => {
 				// check orientation for rotation
 				if (obj[5][3] < -0.4 ){
 					this.player.turning.cw = 1;
@@ -67,7 +68,9 @@ class VoidBreak extends HTMLElement {
 				} else {
 					this.player.firing = false;
 				}
-			});
+			};
+
+			this.socket.on('message', faceControls );
 		}
 
 		//#region Add shadowroot and get canvas
